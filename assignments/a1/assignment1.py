@@ -33,13 +33,14 @@ def exercise1_3(arms):
 	q = [[0], [0], [0], [0], [0], [0], [0]]
 	# Times selected
 	ks = [0, 0, 0, 0, 0, 0, 0]
-	ks_hundred = [[0], [0], [0], [0], [0], [0], [0]]
+	ks_hundred = [[0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]]
+	hundred = 1
 	# Epsilon
 	eps = 0.1
 
 	avg = [0]
 
-	# Take 
+	# take random 
 	best = random.randrange(0, len(arms))
 
 	for i in range(0,2000):
@@ -48,9 +49,10 @@ def exercise1_3(arms):
 		if (i % 100 == 0):
 			if i != 0:
 				for j in range(0, len(ks)):
-					new_k = ks[j] - ks_hundred[j][-1]
-					ks_hundred[j].append(new_k)
-					print ks_hundred
+					ks_hundred[j].append(0)
+
+				hundred = hundred + 1
+					
 
 		selection = random.random()
 		#print selection
@@ -68,6 +70,7 @@ def exercise1_3(arms):
 			q[k].append(qk)
 			# update number of times arm k was selected
 			ks[k] = ks[k] + 1
+			ks_hundred[k][hundred] = ks_hundred[k][hundred] + 1
 			
 			# Get general avg
 			new_avg = avg[-1] + (1.0 / (i + 1) * (reward - avg[-1]))
@@ -86,6 +89,7 @@ def exercise1_3(arms):
 			q[best].append(qk)
 			# update number of times arm k was selected
 			ks[best] = ks[best] + 1
+			ks_hundred[best][hundred] = ks_hundred[best][hundred] + 1
 			
 			# Get general avg
 			new_avg = avg[-1] + (1.0 / (i + 1) * (reward - avg[-1]))
@@ -112,10 +116,10 @@ def exercise1_3(arms):
 
 	legend = []
 	### Plot usage percentages
+	xaxis = range(0,2100, 100)
 	for i in range(len(ks_hundred)):
-	 	plt.plot(ks_hundred[i])
+	 	plt.plot(xaxis, ks_hundred[i])
 	 	legend.append('Arm ' + str(i + 1))
-
 
 
 	plt.title('Usage percentage every 100 steps')
@@ -123,7 +127,9 @@ def exercise1_3(arms):
 	plt.ylabel('Usage percentage')
 	plt.xlabel('Number of Actions taken')
 	plt.legend(legend, loc='lower right')
-	plt.show()
+	plt.xticks(range(0, 2000, 100))	
+	#plt.show()
+	plt.savefig('1_2_2_Usage_Percentage')
 
 
 def main():
