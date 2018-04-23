@@ -1,5 +1,6 @@
-import random
 import matplotlib.pyplot as plt
+import random
+import sys
 
 # function to return best arm (q*(a))
 def getBest(q):
@@ -25,9 +26,7 @@ def exercise1_2(arms):
 	print '1.2) Average reward after 20 uniformly chosen action: '
 	print acum/20
 
-def exercise1_3(arms):
-
-
+def exercise1_3(arms, show):
 
 	# Expected Values
 	q = [[0], [0], [0], [0], [0], [0], [0]]
@@ -110,8 +109,10 @@ def exercise1_3(arms):
 	plt.plot(avg)
 	plt.title('1.3 Average Reward after 2000 chosen actions.')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_3_1_Avg_Reward')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_3_1_Avg_Reward')
 	plt.close()
 
 	legend = []
@@ -128,11 +129,13 @@ def exercise1_3(arms):
 	plt.xlabel('Number of Actions taken')
 	plt.legend(legend, loc='lower right')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_3_2_Usage_Percentage')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_3_2_Usage_Percentage')
 	plt.close()
 
-def exercise1_4(arms):
+def exercise1_4(arms, show):
 
 	# Expected Values
 	q = [[0], [0], [0], [0], [0], [0], [0]]
@@ -219,8 +222,10 @@ def exercise1_4(arms):
 	plt.plot(avg)
 	plt.title('1.4 Average Reward after 2000 chosen actions.')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_4_1_Avg_Reward')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_4_1_Avg_Reward')
 	plt.close()
 
 	legend = []
@@ -237,12 +242,14 @@ def exercise1_4(arms):
 	plt.xlabel('Number of Actions taken')
 	plt.legend(legend, loc='lower right')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_4_2_Usage_Percentage')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_4_2_Usage_Percentage')
 	plt.close()
 
 
-def exercise1_5(arms):
+def exercise1_5(arms, show):
 	
 	# Expected Values
 	q = [[5], [5], [5], [5], [5], [5], [5]]
@@ -302,8 +309,10 @@ def exercise1_5(arms):
 	plt.plot(avg)
 	plt.title('1.5 Average Reward after 2000 chosen actions.')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_5_1_Avg_Reward')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_5_1_Avg_Reward')
 	plt.close()
 
 	legend = []
@@ -320,24 +329,30 @@ def exercise1_5(arms):
 	plt.xlabel('Number of Actions taken')
 	plt.legend(legend, loc='lower right')
 	plt.xticks(range(0, 2000, 100))	
-	#plt.show()
-	plt.savefig('1_5_2_Usage_Percentage')
+	if (show):
+		plt.show()
+	else:
+		plt.savefig('1_5_2_Usage_Percentage')
 	plt.close()
 
 def main():
+
+	show = False
+	if(sys.argv[1] == 'show'):
+		show = True
 
 	arms = [[-2,3], [1,4], [2,3], [-1,5], [0,4],[1,4], [3,7]]
 
 	exercise1_2(arms)
 
-	exercise1_3(arms)
+	exercise1_3(arms, show)
 
-	exercise1_4(arms)
+	exercise1_4(arms, show)
 
 	# Restore Fourth arm distribution
 	arms[3] = [-1,5]
 
-	exercise1_5(arms)
+	exercise1_5(arms, show)
 	
 
 if __name__ == "__main__":
