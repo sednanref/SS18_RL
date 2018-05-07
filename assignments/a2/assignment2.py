@@ -6,6 +6,7 @@
 def get_value(tasks, reward, attempt, repeated):
 
 	# return zero reward after 10 attempts or when there are no tasks left.
+
 	if (attempt > 10 or len(tasks) == 0):
 		return reward
 
@@ -31,8 +32,41 @@ def get_value(tasks, reward, attempt, repeated):
 
 
 def exercise2_3_1(tasks):
-	reward = 0 				# Reward when the student hasn't started
-	return get_value(tasks, reward, 1, False)
+
+	reward = 0 				# Reward when the student starts the exam
+	policy = tasks # Order of tasks didn't change becaus of policy
+
+	print 'Expected reward following policy A: '	
+	print get_value(policy, reward, 1, False)
+
+def exercise2_3_2(tasks):
+	
+	reward = 0 				# Reward when the student starts the exam
+	tasks2 = sorted(tasks, key=lambda task: task[1]) # Sort on solution prob.
+
+	policy2 = []
+
+	# Revert the array, our policy is trying to solve easy tasks first.
+	for i in range(len(tasks2) - 1, -1, -1):
+		policy2.append(tasks2[i])
+
+
+	print 'Expected reward following policy B: '	
+	print get_value(policy2, reward, 1, False)
+
+def exercise2_4(tasks):
+	
+	reward = 0 				# Reward when the student starts the exam
+	tasks3 = sorted(tasks, key=lambda task: task[0]) # Sort on points.
+	
+	policy3 = []
+
+	# Revert the array, our policy is trying to solve tasks with more points first.
+	for i in range(len(tasks3) - 1, -1, -1):
+		policy3.append(tasks3[i])
+
+	print 'Expected reward following policy C: '	
+	print get_value(policy3, reward, 1, False)
 
 def main():
 	
@@ -46,10 +80,10 @@ def main():
 		(20, 0.2)
 		]
 	
-	reward_p1 = exercise2_3_1(tasks)
+	exercise2_3_1(tasks)
+	exercise2_3_2(tasks)
+	exercise2_4(tasks)
 
-	print 'Expected reward following policy 1: '
-	print reward_p1
 
 
 if __name__ == "__main__":
